@@ -1,0 +1,91 @@
+#include<stdio.h>
+#define MAX 5
+int stack[MAX];
+int top = -1;
+void push()
+{
+    int item;
+    if(top == MAX-1)
+    {
+        printf("Stack Overloaded \n");
+    }
+    else
+    {
+        printf("Enter the element\n");
+        scanf("%d",&item);
+        top++;
+        stack[top] = item;
+        printf("Pushed element into the stack %d\n", item);
+    }
+}
+void pop()
+{
+    if(top == -1)
+    {
+        printf("Stack is empty \n");
+    }
+    else
+    {
+        printf("%d is deleted", stack[top]);
+        top--;
+    }
+}
+void peek()
+{
+    if(top == -1)
+    {
+        printf("Stack is empty \n");
+    }
+    else
+    {
+        printf("%d is peeked value", stack[top]);
+    }
+}
+void display()
+{
+    int i;
+    if(top == -1)
+    {
+        printf("Stack is empty\n");
+    }
+    else
+    {
+        for(i = top;i >= 0;i--)
+        {
+            printf("%d", stack[i]);
+        }
+    }
+}
+int main()
+{
+    int choice;
+    do
+    {
+        printf("STACK OPERATIONS USING ARRAY\n");
+        printf("1. Push\n");
+        printf("2. Pop\n");
+        printf("3. Peek\n");
+        printf("4. Display\n");
+        printf("5. Exit\n");
+        printf("Enter your choice");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+            case 1: push();
+            printf("Push Operation Executed \n");
+            break;
+            case 2: pop();
+            printf("Pop Operation Executed \n");
+            break;
+            case 3: peek();
+            printf("Peek Operation Executed \n");
+            break;
+            case 4: display();
+            printf("Display Operation Executed \n");
+            break;
+            case 5: break;
+            default: printf("Invalid Choice\n");
+        }
+    } while(choice != 5);
+    return 0;
+}

@@ -1,0 +1,38 @@
+// Note: While the PDF Aim is "Evaluate Postfix Expression", the code provided in the PDF is actually for Parenthesis Matching.
+#include<stdio.h>
+char stack[100];
+int top = -1;
+void push(char ch) {
+    stack[++top]=ch;
+}
+char pop() {
+    return stack[top--];
+}
+int main() {
+    char str[100];
+    int i=0;
+    printf("Enter expression: ");
+    scanf("%s", str);
+    while(str[i]!= '\0') {
+        if(str[i]== '(' || str[i]=='{' || str[i]=='[') {
+            push(str[i]);
+        }
+        else if(str[i]==')' || str[i]=='}' || str[i]==']') {
+            if(top==-1) {
+                printf("Not Balanced");
+                return 0;
+            }
+            char ch=pop();
+            if((str[i]==')' && ch!='(') || (str[i]=='}' && ch!='{') || (str[i]==']' && ch!='[')) {
+                printf("Not Balanced");
+                return 0;
+            }
+        }
+        i++;
+    }
+    if (top==-1)
+        printf("Balanced");
+    else
+        printf("Not Balanced");
+    return 0;
+}

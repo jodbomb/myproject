@@ -1,0 +1,98 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+    int data;
+    struct node *next;
+};
+struct node *start = NULL;
+void insertBeg(int value)
+{
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = value;
+    newnode->next = start;
+    start = newnode;
+}
+void insertEnd(int value)
+{
+    struct node *newnode, *temp;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = value;
+    newnode->next = NULL;
+    if (start == NULL) {
+        start = newnode;
+        return;
+    }
+    temp = start;
+    while (temp->next != NULL)
+        temp = temp->next;
+    temp->next = newnode;
+}
+void deleteBeg()
+{
+    struct node *temp;
+    if (start == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    temp = start;
+    start = start->next;
+    free(temp);
+}
+void deleteEnd()
+{
+    struct node *temp, *prev;
+    if (start == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    if (start->next == NULL) {
+        free(start);
+        start = NULL;
+        return;
+    }
+    temp = start;
+    while (temp->next != NULL) {
+        prev = temp;
+        temp = temp->next;
+    }
+    prev->next = NULL;
+    free(temp);
+}
+void display()
+{
+    struct node *temp = start;
+    if (start == NULL) {
+        printf("List is empty\n");
+        return;
+    }
+    while (temp != NULL) {
+        printf("%d ->", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+int main()
+{
+    int ch, value;
+    while (1) {
+        printf("\n1. Insert Beginning");
+        printf("\n2. Insert End");
+        printf("\n3.Delete Beginning");
+        printf("\n4.Delete End");
+        printf("\n5.Display");
+        printf("\n6.Exit");
+        printf("\nEnter choice: ");
+        scanf("%d", &ch);
+        switch (ch) {
+            case 1: printf("Enter value: "); scanf("%d", &value); insertBeg(value); break;
+            case 2: printf("Enter value: "); scanf("%d", &value); insertEnd(value); break;
+            case 3: deleteBeg(); break;
+            case 4: deleteEnd(); break;
+            case 5: display(); break;
+            case 6: exit(0);
+            default: printf("Invalid choice\n");
+        }
+    }
+    return 0;
+}
